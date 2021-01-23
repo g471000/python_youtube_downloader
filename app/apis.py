@@ -14,7 +14,7 @@ def ask_directory():
                 directory=directory
             )
         )
-        if correct == "y":
+        if correct.lower() == "y":
             return directory
 
 
@@ -22,7 +22,7 @@ def ask_playlist_or_video():
     while True:
         answer = input(
             "Are you downloading Playlist or Video(s)? Type (p)laylist or (v)ideo: "
-        )
+        ).lower()
         if answer == "v" or answer == "video":
             return ytenum.downtype.VIDEO
         elif answer == "p" or answer == "playlist":
@@ -32,7 +32,7 @@ def ask_playlist_or_video():
 
 
 # Ask YouTube video link that the user wants to download
-# Return YouTube objects' list 
+# Return YouTube objects' list
 def ask_video_link_and_get_video_list():
     video_list = []
     link = input("Please type YouTube video link: ")
@@ -48,19 +48,23 @@ def ask_video_link_and_get_video_list():
             )
             link = input("Please type YouTube Video link: ")
 
-        if link == "n":
+        if link.lower() == "n":
             return youtube_list
+
 
 # Ask YouTube playlist link that the user wants to download
 # Return YouTube Playlist Object
 def ask_playlist_and_get_playlist():
-	link = input("Please type YouTube Playlist link: ")
-	while True:
-		try:
-			return Playlist(link)
-		except:
-			print("Invalid URL. Please type valid Playlsit URL (e.g. https://youtu.be/rCeM57e2BfU)")
-			link = input("Please type YouTube Playlist link: ")   
+    link = input("Please type YouTube Playlist link: ")
+    while True:
+        try:
+            return Playlist(link)
+        except:
+            print(
+                "Invalid URL. Please type valid Playlsit URL (e.g. https://youtu.be/rCeM57e2BfU)"
+            )
+            link = input("Please type YouTube Playlist link: ")
+
 
 # ask type that the user wants to download.
 # user can download either video or audio
@@ -68,24 +72,26 @@ def ask_type():
     while True:
         type = input(
             "Which Type do you want to download? (Type '(a)udio' or '(v)ideo': "
-        )
+        ).lower()
         if type == "a" or type == "audio":
-            return ytenum.filetype.AUDIO 
+            return ytenum.filetype.AUDIO
         elif type == "v" or type == "video":
-            return ytenum.filetype.VIDEO 
+            return ytenum.filetype.VIDEO
         else:
             print("Invalid Type! Please type again.")
+
 
 # ask if user wants to open the finder with the
 # downloaded location
 def ask_open_finder_and_do(directory):
-	while True:
-		answer = input(
-			"Do you want to open the Finder(Downloaded location)? [y/n]")
-		if answer == 'y':
-			call(["open", directory])
-			return
-		elif answer == 'n':
-			return
-		else:
-			print("Invalid input. Please type y or n")
+    while True:
+        answer = input(
+            "Do you want to open the Finder(Downloaded location)? [y/n]"
+        ).lower()
+        if answer == "y":
+            call(["open", directory])
+            return
+        elif answer == "n":
+            return
+        else:
+            print("Invalid input. Please type y or n")
